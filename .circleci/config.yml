@@ -59,6 +59,7 @@ jobs:
         description: |
           Cluster Name
         type: string
+        default: deepeshcapsone        
     steps:
       - checkout
       - aws-eks/install-aws-iam-authenticator:
@@ -80,7 +81,7 @@ jobs:
             $SUDO mv eksctl_load/eksctl /usr/local/bin/
             rmdir eksctl_load
       - aws-eks/create-cluster:
-          cluster-name: deepeshcapsone
+          cluster-name: << parameters.cluster-name >>
           skip-kubectl-install: false
           verbose: 3
           node-type: t2.micro
