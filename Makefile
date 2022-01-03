@@ -4,7 +4,6 @@
 # Dockerfile should pass hadolint which is docker lint tool
 # app.py should pass pylint
 
-
 setup:
 	python3 -m venv ~/.devops
    	source ~/.devops/bin/activate
@@ -13,7 +12,7 @@ setup:
 install:
 	# This should be run from inside a virtualenv
 	pip install --upgrade pip &&\
-	pip install -r requirements.txt
+	    pip install -r requirements.txt
 	sudo wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64 &&\
 	sudo chmod +x /bin/hadolint
 
