@@ -57,4 +57,4 @@ workflows:
   deployment:
     jobs:
       - lintcheck 
-      - building-images           
+      - building-image           
