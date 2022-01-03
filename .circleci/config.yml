@@ -33,7 +33,28 @@ jobs:
             . ~/.devops/bin/activate
             make lint
 
+
+  building-image:
+    machine: true
+    working_directory: ~/app
+    steps:
+      - checkout
+      - run:
+          name: Build Docker Image 
+          command: |
+            docker login --username $docker_username --password $Docker_Pass
+            docker build --tag=webapp1 .
+            # Add the changes to the docker image
+            docker-compose up -d
+            # List docker images
+            docker images
+            # Push image to a docker repository
+            docker tag webapp1 dbhatia86/webapp1
+            docker push dbhatia86/webapp1
+
+
 workflows:
   deployment:
     jobs:
-      - lintcheck            
+      - lintcheck 
+      - building-images           
