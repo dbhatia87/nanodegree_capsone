@@ -1,18 +1,19 @@
-# The Makefile includes instructions on environment setup and lint tests
-# Create and activate a virtual environment devops
+## The Makefile includes instructions on environment setup and lint tests
+# Create and activate a virtual environment
 # Install dependencies in requirements.txt
-# Dockerfile should pass hadolint which is docker lint tool
+# Dockerfile should pass hadolint
 # app.py should pass pylint
+# (Optional) Build a simple integration test
+
 setup:
 	# Create python virtualenv & source it
-	python3 -m venv ~/.devops
+	python3 -m venv ~/.capstone
 	source ~/.devops/bin/activate
-
 
 install:
 	# This should be run from inside a virtualenv
 	pip install --upgrade pip &&\
-	    pip install -r requirements.txt
+		pip install -r requirements.txt
 	sudo wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64 &&\
 	sudo chmod +x /bin/hadolint
 
