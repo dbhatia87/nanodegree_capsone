@@ -59,7 +59,7 @@ jobs:
         description: |
           Cluster Name
         type: string
-        default: deepeshcapsone1        
+        default: deepeshcapsone2        
     steps:
       - checkout
       - aws-eks/install-aws-iam-authenticator:
@@ -97,7 +97,7 @@ jobs:
         description: |
           Simple web App
         type: string
-        default: deepeshcapsone1
+        default: deepeshcapsone2
 
     steps:
       - checkout
@@ -116,7 +116,7 @@ jobs:
         description: |
           Cluser Name
         type: string
-        default: deepeshcapsone1 
+        default: deepeshcapsone2 
     steps:
       - kubernetes/install
       - aws-eks/update-kubeconfig-with-authenticator:
@@ -139,15 +139,15 @@ workflows:
           requires:
             - lintcheck
       - create-cluster:
-          cluster-name: deepeshcapsone1
+          cluster-name: deepeshcapsone2
           requires:
             - building-image
       - cluster-deployment:
-          cluster-name: deepeshcapsone1
+          cluster-name: deepeshcapsone2
           requires: 
             - create-cluster
       - aws-eks/update-container-image:
-          cluster-name: deepeshcapsone1
+          cluster-name: deepeshcapsone2
           container-image-updates: webapp2=dbhatia86/webapp2
           post-steps:
               - kubernetes/delete-resource:
@@ -159,6 +159,6 @@ workflows:
             - cluster-deployment
           resource-name: deployment/webapp2
       - testkube-cluster:
-          cluster-name: deepeshcapsone1
+          cluster-name: deepeshcapsone2
           requires: 
             - aws-eks/update-container-image

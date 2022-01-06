@@ -1,15 +1,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: webapp1
+  name: webapp2
   labels:
-    app: webapp1
+    app: webapp2
   namespace: default
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: webapp1
+      app: webapp2
   strategy:
     rollingUpdate:
       maxSurge: 40%
@@ -18,12 +18,12 @@ spec:
   template:
     metadata:
       labels:
-        app: webapp1
+        app: webapp2
     spec:
       containers:
-        - image: dbhatia86/webapp1
+        - image: dbhatia86/webapp2
           imagePullPolicy: Always
-          name: webapp1
+          name: webapp2
           ports:
             - containerPort: 80
 
@@ -31,13 +31,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: webapp1
+  name: webapp2
   labels:
-    app: webapp1
+    app: webapp2
 spec:
   type: LoadBalancer
   selector:
-    app: webapp1
+    app: webapp2
   ports:
     - port: 8000
       targetPort: 80
