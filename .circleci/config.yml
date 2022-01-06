@@ -89,11 +89,31 @@ jobs:
           ssh-access: false
           ssh-public-key: ''
 
-
+  testkube-cluster:
+    executor: aws-eks/python3
+    parameters:
+      cluster-name:
+        description: |
+          Cluser Name
+        type: string
+        default: deepeshcapsone 
+    steps:
+      - kubernetes/install
+      - aws-eks/update-kubeconfig-with-authenticator:
+          cluster-name: << parameters.cluster-name >>
+      - run:
+          name: testing deployed kubernetes cluster
+          command: |
+            echo "testing cluster"
+            kubectl get services
+            kubectl describe pods
+            kubectl get nodes
+            kubectl get deployment
 
 workflows:
   deployment:
     jobs:
-      - lintcheck 
-      - building-image
-      - create-cluster           
+ #     - lintcheck 
+ #     - building-image
+ #     - create-cluster
+       - testkube-cluster           
