@@ -133,8 +133,31 @@ jobs:
 workflows:
   deployment:
     jobs:
- #     - lintcheck 
- #     - building-image
- #     - create-cluster
- #     - testkube-cluster
-       - cluster-deployment                  
+      - lintcheck
+      - building-image:
+          requires:
+            - linting
+      - create-cluster:
+          cluster-name: deepeshcapsone
+          requires:
+            - building-image
+      - cluster-deployment:
+          cluster-name: deepeshcapsone
+          requires: 
+            - create-cluster
+      - aws-eks/update-container-image:
+          cluster-name: deepeshcapsone
+          container-image-updates: webapp2=dbhatia86/webapp2
+          post-steps:
+              - kubernetes/delete-resource:
+                  resource-names: webapp2
+                  resource-types: deployment
+                  wait: true
+          record: true
+          requires: 
+            - cluster-deployment
+          resource-name: deployment/webapp2
+      - testkube-cluster:
+          cluster-name: deepeshcapsone
+          requires: 
+            - aws-eks/update-container-image
