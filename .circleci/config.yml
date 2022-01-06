@@ -136,7 +136,7 @@ workflows:
       - lintcheck
       - building-image:
           requires:
-            - linting
+            - lintcheck
       - create-cluster:
           cluster-name: deepeshcapsone
           requires:
