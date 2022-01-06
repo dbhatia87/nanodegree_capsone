@@ -106,7 +106,7 @@ jobs:
           cluster-name: << parameters.cluster-name >>
           install-kubectl: true
       - kubernetes/create-or-update-resource:
-          resource-file-path: deploy.yml
+          resource-file-path: Deploy.yml
           resource-name: deployment/sampleapp          
 
   testkube-cluster:
